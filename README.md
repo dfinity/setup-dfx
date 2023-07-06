@@ -1,6 +1,6 @@
 # dfinity/setup-dfx
 
-The `dfinity/setup-dfx` repository provides a GitHub Action to set up the `dfx` software development kit (SDK) for [Internet Computer](https://internetcomputer.org). 
+The `dfinity/setup-dfx` repository provides a GitHub Action to set up the [`dfx` software development kit (SDK)](https://github.com/dfinity/sdk/) for [Internet Computer](https://internetcomputer.org). 
 
 ## Usage
 
