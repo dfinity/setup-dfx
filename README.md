@@ -1,6 +1,6 @@
 # dfinity/setup-dfx
 
-The `dfinity/setup-dfx` repository provides a GitHub Action to streamline the installation of the `dfx` software development kit (SDK) for [Internet Computer](https://internetcomputer.org). This action simplifies the setup of Dfinity development environments in GitHub workflows.
+The `dfinity/setup-dfx` repository provides a GitHub Action to set up the `dfx` software development kit (SDK) for [Internet Computer](https://internetcomputer.org). 
 
 ## Usage
 
@@ -9,7 +9,7 @@ To use this action in your GitHub workflow, include it as a step in your workflo
 ```yml
 jobs:
   example-job:
-    runs-on: ubuntu-latest # macOS works too
+    runs-on: ubuntu-latest 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -18,8 +18,7 @@ jobs:
     - name: Confirm successful installation
       run: dfx --version
 ```
-
-The action is designed to run on both `ubuntu-latest` and `macOS` runners.
+The action is designed to run on both `ubuntu-` and `macos-` runners.
 
 ## Specifying a dfx Version
 
