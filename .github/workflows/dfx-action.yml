@@ -3,15 +3,15 @@ on:
     branches:
       - 'main'
     paths:
-      - '.github/workflows/tests/dfx-action.yml'
+      - '.github/workflows/dfx-action.yml'
       - 'action.yml'
   pull_request:
     paths:
-      - '.github/workflows/tests/dfx-action.yml'
+      - '.github/workflows/dfx-action.yml'
       - 'action.yml'
 
 jobs:
-  # This job can be executed locally with the command `act -W .github/workflows/tests/dfx-action.yml`
+  # This job can be executed locally with the command `act -W .github/workflows/dfx-action.yml`
   test_dfx_action:
     runs-on: ubuntu-latest
     name: Test the dfx action (action.yml)
