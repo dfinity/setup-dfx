@@ -15,7 +15,7 @@ runs:
       shell: sh
       run: |
         echo "Version ${{ inputs.dfx-version }} will be installed"
-        if [ ${{ inputs.dfx-version }} = latest ]; then
+        if [ "${{ inputs.dfx-version }}" = "latest" ]; then
           sh -ci "$(curl -fsSL https://internetcomputer.org/install.sh)"
         else
           DFX_VERSION=${{ inputs.dfx-version }} sh -ci "$(curl -fsSL https://internetcomputer.org/install.sh)"
