@@ -2,13 +2,7 @@ on:
   push:
     branches:
       - 'main'
-    paths:
-      - '.github/workflows/dfx-action.yml'
-      - 'action.yml'
   pull_request:
-    paths:
-      - '.github/workflows/dfx-action.yml'
-      - 'action.yml'
 
 jobs:
   # This job can be executed locally with the command `act -W .github/workflows/dfx-action.yml`
