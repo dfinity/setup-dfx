@@ -2,6 +2,7 @@ on:
   push:
     branches:
       - 'main'
+      - 'ens/dfxvm'
   pull_request:
 
 jobs:
