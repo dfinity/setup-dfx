@@ -28,3 +28,8 @@ runs:
       run: |
         echo "$HOME/.local/share/dfx/bin" >> $GITHUB_PATH
         ls -l $HOME/.local/share/dfx/bin
+    - name: Set up path (macos)
+      shell: sh
+      if: runner.os == 'macOS'
+      run: |
+        echo "$HOME/Library/Application Support/org.dfinity.dfx/bin" >> $GITHUB_PATH
