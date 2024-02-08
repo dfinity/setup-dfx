@@ -11,12 +11,14 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: Set up environment
+      if: inputs.dfx-version != 'latest'
+      shell: sh
+      run: |
+        echo "DFX_VERSION=${{ inputs.dfx-version }}" >> $GITHUB_ENV
+        echo "DFXVM_INIT_YES=true" >> $GITHUB_ENV
     - name: Install dfx
       shell: sh
       run: |
         echo "Version ${{ inputs.dfx-version }} will be installed"
-        if [ "${{ inputs.dfx-version }}" = "latest" ]; then
-          sh -ci "$(curl -fsSL https://internetcomputer.org/install.sh)"
-        else
-          DFX_VERSION="${{ inputs.dfx-version }}" sh -ci "$(curl -fsSL https://internetcomputer.org/install.sh)"
-        fi
+        sh -ci "$(curl -fsSL https://raw.githubusercontent.com/dfinity/sdk/ens/update-setup-dfx-action/public/install-dfxvm.sh)"
