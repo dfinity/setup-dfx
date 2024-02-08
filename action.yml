@@ -11,15 +11,19 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Set DFX_VERSION if not latest
-      if: inputs.dfx-version != 'latest'
-      shell: sh
-      run: |
-        echo "DFX_VERSION=${{ inputs.dfx-version }}" >> $GITHUB_ENV
     - name: Install dfx
       shell: sh
       env:
         DFXVM_INIT_YES: 'true'
       run: |
         echo "Version ${{ inputs.dfx-version }} will be installed"
-        sh -ci "$(curl -fsSL https://raw.githubusercontent.com/dfinity/sdk/ens/update-setup-dfx-action/public/install-dfxvm.sh)"
+        if [ "${{ inputs.dfx-version }}" = "latest" ]; then
+          sh -ci "$(curl -fsSL https://raw.githubusercontent.com/dfinity/sdk/ens/update-setup-dfx-action/public/install-dfxvm.sh)"
+        else
+          DFX_VERSION="${{ inputs.dfx-version }}" sh -ci "$(curl -fsSL https://raw.githubusercontent.com/dfinity/sdk/ens/update-setup-dfx-action/public/install-dfxvm.sh)"
+        fi
+    - name: Set up path (linux)
+      shell: sh
+      if: runner.os == 'Linux'
+      run: |
+        echo "export PATH=\$HOME/.local/share/dfx/bin:\$PATH" >> $GITHUB_ENV
