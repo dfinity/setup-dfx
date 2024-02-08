@@ -17,17 +17,16 @@ runs:
         DFXVM_INIT_YES: 'true'
       run: |
         echo "Version ${{ inputs.dfx-version }} will be installed"
-        if [ "${{ inputs.dfx-version }}" = "latest" ]; then
-          sh -ci "$(curl -fsSL https://raw.githubusercontent.com/dfinity/sdk/ens/update-setup-dfx-action/public/install-dfxvm.sh)"
-        else
-          DFX_VERSION="${{ inputs.dfx-version }}" sh -ci "$(curl -fsSL https://raw.githubusercontent.com/dfinity/sdk/ens/update-setup-dfx-action/public/install-dfxvm.sh)"
+        
+        if [ "${{ inputs.dfx-version }}" != "latest" ]; then
+          export DFX_VERSION="${{ inputs.dfx-version }}"
         fi
+        sh -ci "$(curl -fsSL https://raw.githubusercontent.com/dfinity/sdk/ens/update-setup-dfx-action/public/install-dfxvm.sh)"
     - name: Set up path (linux)
       shell: sh
       if: runner.os == 'Linux'
       run: |
         echo "$HOME/.local/share/dfx/bin" >> $GITHUB_PATH
-        ls -l $HOME/.local/share/dfx/bin
     - name: Set up path (macos)
       shell: sh
       if: runner.os == 'macOS'
