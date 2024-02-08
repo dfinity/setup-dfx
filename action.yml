@@ -26,4 +26,5 @@ runs:
       shell: sh
       if: runner.os == 'Linux'
       run: |
-        echo "export PATH=\$HOME/.local/share/dfx/bin:\$PATH" >> $GITHUB_ENV
+        echo "$HOME/.local/share/dfx/bin" >> $GITHUB_PATH
+        ls -l $HOME/.local/share/dfx/bin
