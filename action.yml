@@ -15,7 +15,7 @@ runs:
       shell: sh
       env:
         DFXVM_INIT_YES: 'true'
-        DFX_VERSION: ${{ inputs.dfx-version != 'latest' && inputs.dfx-version || '' }}
+        DFX_VERSION: ${{ inputs.dfx-version != 'latest' && 'abc' || '' }}
       run: |
         echo "Version ${{ inputs.dfx-version }} will be installed"
 
