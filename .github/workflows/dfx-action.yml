@@ -8,7 +8,7 @@ on:
 jobs:
   # This job can be executed locally with the command `act -W .github/workflows/dfx-action.yml`
   test_dfx_action:
-    runs-on: ubuntu-latest
+    runs-on: [ ubuntu-latest, macos-latest ]
     name: Test the dfx action (action.yml)
     strategy:
       matrix:
