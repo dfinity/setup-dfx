@@ -19,7 +19,7 @@ runs:
       run: |
         echo "Version ${{ inputs.dfx-version }} will be installed"
 
-        sh -ci "$(curl -fsSL https://raw.githubusercontent.com/dfinity/sdk/ens/update-setup-dfx-action/public/install-dfxvm.sh)"
+        sh -ci "$(curl -fsSL https://raw.githubusercontent.com/dfinity/sdk/dfxvm-install-script/install.sh)"
     - name: Set up path (linux)
       shell: sh
       if: runner.os == 'Linux'
