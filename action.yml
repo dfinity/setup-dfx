@@ -13,10 +13,20 @@ runs:
   steps:
     - name: Install dfx
       shell: sh
+      env:
+        DFXVM_INIT_YES: 'true'
+        DFX_VERSION: ${{ inputs.dfx-version != 'latest' && inputs.dfx-version || '' }}
       run: |
         echo "Version ${{ inputs.dfx-version }} will be installed"
-        if [ "${{ inputs.dfx-version }}" = "latest" ]; then
-          sh -ci "$(curl -fsSL https://internetcomputer.org/install.sh)"
-        else
-          DFX_VERSION="${{ inputs.dfx-version }}" sh -ci "$(curl -fsSL https://internetcomputer.org/install.sh)"
-        fi
+
+        sh -ci "$(curl -fsSL https://internetcomputer.org/install.sh)"
+    - name: Set up path (linux)
+      shell: sh
+      if: runner.os == 'Linux'
+      run: |
+        echo "$HOME/.local/share/dfx/bin" >> $GITHUB_PATH
+    - name: Set up path (macos)
+      shell: sh
+      if: runner.os == 'macOS'
+      run: |
+        echo "$HOME/Library/Application Support/org.dfinity.dfx/bin" >> $GITHUB_PATH
