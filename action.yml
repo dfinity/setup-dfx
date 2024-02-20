@@ -19,19 +19,18 @@ runs:
         DFXVM_INIT_YES: 'true'
         # DFX_VERSION: ${{ inputs.dfx-version != 'latest' && inputs.dfx-version || '' }}
       run: |
-        # if the version is "auto", check if dfx.json exists and use the version from it
-        if [ "${{ inputs.dfx-version }}" = "auto" ]; then
+        if [ "${{ inputs.dfx-version }}" = "latest" ]; then
+            echo "Latest version will be installed"
+            export DFX_VERSION=""
+        elif [ "${{ inputs.dfx-version }}" = "auto" ]; then
             if [ -f dfx.json ]; then
                 export DFX_VERSION="$(jq -r '.dfx' dfx.json)"
-                echo "Version $DFX_VERSION will be installed"
+                echo "Version $DFX_VERSION from dfx.json will be installed"
             else
                 echo "No dfx.json found, installing the latest version"
-                DFX_VERSION=""
+                export DFX_VERSION=""
             fi
-        fi
-        # if the version is neither "latest" not "auto", export it to the environment
-        if [ "${{ inputs.dfx-version }}" != "latest" ] && [ "${{ inputs.dfx-version }}" != "auto" ]; then
-            echo "Version $DFX_VERSION will be installed"
+        else
             export DFX_VERSION="${{ inputs.dfx-version }}"
         fi
         
