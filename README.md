@@ -35,7 +35,7 @@ You can specify a particular version of dfx to install using the `dfx-version` i
 
 | Input         | Description   |
 |---------------|---------------|
-| `dfx-version` | (Optional) The version of dfx to install. If not specified, the latest version will be installed.
+| `dfx-version` | (Optional) The version of dfx to install. If "auto" (the default), the version will be taken from dfx.json if present, otherwise latest.  If "latest", the latest version will be installed.
 
 ## Contributing
 
