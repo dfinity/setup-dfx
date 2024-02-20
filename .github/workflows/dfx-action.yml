@@ -18,6 +18,11 @@ jobs:
           - version: '0.14.1'
             expected-version: '0.14.1'
     steps:
+      - name: Debug Matrix
+        run: |
+          echo "Operating System: ${{ matrix.os }}"
+          echo "Version: ${{ matrix.version }}"
+          echo "Expected Version: ${{ matrix.expected-version }}"
       # To use this repository's private action, you must check out the repository
       - name: Checkout
         uses: actions/checkout@v4
