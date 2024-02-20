@@ -76,6 +76,7 @@ jobs:
           dfx-version: ${{ matrix.version }}
       - name: Check if the proper dfx version is installed
         run: |
+          pwd
           export
           
           actual_dfx_ver="$(dfx --version)"
