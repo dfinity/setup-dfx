@@ -34,6 +34,9 @@ jobs:
             dfx-json-dfx-version: '0.14.1'
             expected-version: '0.14.1'
             os: ubuntu-latest
+          - version: 'auto'
+            dfx-json-no-dfx-version: 'true'
+            os: ubuntu-latest
 
           - version: '0.11.1'
             expected-version: '0.11.1'
@@ -56,6 +59,9 @@ jobs:
             dfx-json-dfx-version: '0.14.1'
             expected-version: '0.14.1'
             os: macos-latest
+          - version: 'auto'
+            dfx-json-no-dfx-version: 'true'
+            os: macos-latest
 
     steps:
       # To use this repository's private action, you must check out the repository
@@ -67,8 +73,12 @@ jobs:
           echo "Testing dfx version ${{ matrix.version }}"
           # create dfx.json with dfx-json-dfx-version if set:
           pwd
-          if [ "${{ matrix.version }}" = "auto" ] && [ -n "${{ matrix.dfx-json-dfx-version }}" ]; then
+          if [ "${{ matrix.version }}" = "auto" ]; then
+            if [ -n "${{ matrix.dfx-json-dfx-version }}" ]; then
               echo "{\"dfx\": \"${{ matrix.dfx-json-dfx-version }}\"}" > dfx.json
+            elif [ -n "${{ matrix.dfx-json-no-dfx-version }}" ]; then
+              echo "{}" > dfx.json
+            fi
           fi
       # Install a certain `dfx` version and check if it is properly installed
       - name: Install dfx
