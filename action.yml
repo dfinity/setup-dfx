@@ -24,13 +24,13 @@ runs:
         elif [ "${{ inputs.dfx-version }}" = "auto" ]; then
             export DFX_VERSION="$(jq -er '.dfx // ""' dfx.json || echo "")"
             echo "Took DFX_VERSION=$DFX_VERSION from dfx.json"
-#            if [ -f dfx.json ]; then
-#                export DFX_VERSION="$(jq -r '.dfx // ""' dfx.json)"
-#                echo "Took DFX_VERSION=$DFX_VERSION from dfx.json"
-#            else
-#                echo "No dfx.json found, installing the latest version"
-#                export DFX_VERSION=""
-#            fi
+            #            if [ -f dfx.json ]; then
+            #                export DFX_VERSION="$(jq -r '.dfx // ""' dfx.json)"
+            #                echo "Took DFX_VERSION=$DFX_VERSION from dfx.json"
+            #            else
+            #                echo "No dfx.json found, installing the latest version"
+            #                export DFX_VERSION=""
+            #            fi
         else
             export DFX_VERSION="${{ inputs.dfx-version }}"
         fi
