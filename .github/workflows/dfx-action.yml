@@ -12,7 +12,6 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, macos-latest ]
-        a: [b, c]
         include:
           - version: '0.11.1'
             expected-version: '0.11.1'
