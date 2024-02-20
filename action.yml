@@ -22,19 +22,21 @@ runs:
             echo "Latest version will be installed"
             export DFX_VERSION=""
         elif [ "${{ inputs.dfx-version }}" = "auto" ]; then
-            if [ -f dfx.json ]; then
-                export DFX_VERSION="$(jq -r '.dfx // ""' dfx.json)"
-                echo "Took DFX_VERSION=$DFX_VERSION from dfx.json"
-            else
-                echo "No dfx.json found, installing the latest version"
-                export DFX_VERSION=""
-            fi
+            export DFX_VERSION="$(jq -er '.dfx // ""' dfx.json || echo "")"
+            echo "Took DFX_VERSION=$DFX_VERSION from dfx.json"
+#            if [ -f dfx.json ]; then
+#                export DFX_VERSION="$(jq -r '.dfx // ""' dfx.json)"
+#                echo "Took DFX_VERSION=$DFX_VERSION from dfx.json"
+#            else
+#                echo "No dfx.json found, installing the latest version"
+#                export DFX_VERSION=""
+#            fi
         else
             export DFX_VERSION="${{ inputs.dfx-version }}"
         fi
-        
+
         echo "DFX_VERSION is $DFX_VERSION"
-        
+
         sh -ci "$(curl -fsSL https://internetcomputer.org/install.sh)"
     - name: Set up path (linux)
       shell: sh

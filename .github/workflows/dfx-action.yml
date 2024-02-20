@@ -37,6 +37,13 @@ jobs:
           - version: 'auto'
             dfx-json-no-dfx-version: 'true'
             os: ubuntu-latest
+          - version: 'latest'
+            os: ubuntu-latest
+            dfx-json-dfx-version: '0.14.1'
+          - version: '0.14.1'
+            expected-version: '0.14.1'
+            dfx-json-dfx-version: '0.13.1'
+            os: ubuntu-latest
 
           - version: '0.11.1'
             expected-version: '0.11.1'
@@ -62,6 +69,13 @@ jobs:
           - version: 'auto'
             dfx-json-no-dfx-version: 'true'
             os: macos-latest
+          - version: 'latest'
+            os: macos-latest
+            dfx-json-dfx-version: '0.14.1'
+          - version: '0.14.1'
+            expected-version: '0.14.1'
+            dfx-json-dfx-version: '0.13.1'
+            os: macos-latest
 
     steps:
       # To use this repository's private action, you must check out the repository
@@ -69,16 +83,10 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup
         run: |
-          echo "Running on ${{ matrix.os }}"
-          echo "Testing dfx version ${{ matrix.version }}"
-          # create dfx.json with dfx-json-dfx-version if set:
-          pwd
-          if [ "${{ matrix.version }}" = "auto" ]; then
-            if [ -n "${{ matrix.dfx-json-dfx-version }}" ]; then
-              echo "{\"dfx\": \"${{ matrix.dfx-json-dfx-version }}\"}" > dfx.json
-            elif [ -n "${{ matrix.dfx-json-no-dfx-version }}" ]; then
-              echo "{}" > dfx.json
-            fi
+          if [ -n "${{ matrix.dfx-json-dfx-version }}" ]; then
+            echo "{\"dfx\": \"${{ matrix.dfx-json-dfx-version }}\"}" > dfx.json
+          elif [ -n "${{ matrix.dfx-json-no-dfx-version }}" ]; then
+            echo "{}" > dfx.json
           fi
       # Install a certain `dfx` version and check if it is properly installed
       - name: Install dfx
@@ -87,9 +95,6 @@ jobs:
           dfx-version: ${{ matrix.version }}
       - name: Check if the proper dfx version is installed
         run: |
-          pwd
-          export
-          
           actual_dfx_ver="$(dfx --version)"
 
           if [ -n "${{ matrix.expected-version }}" ]; then
@@ -103,4 +108,3 @@ jobs:
           else
               echo "dfx version '$actual_dfx_ver' was installed"
           fi
-
