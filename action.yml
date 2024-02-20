@@ -26,8 +26,10 @@ runs:
         elif [ "${{ inputs.dfx-version }}" = "auto" ]; then
             if [ -f dfx.json ]; then
                 export DFX_VERSION="$(jq -r '.dfx' dfx.json)"
+                echo "ACTION_DFX_JSON_VERSION=$DFX_VERSION" >> $GITHUB_ENV
                 echo "Version $DFX_VERSION from dfx.json will be installed"
             else
+                echo "ACTION_NO_DFX_JSON=true" >> $GITHUB_ENV
                 echo "No dfx.json found, installing the latest version"
                 export DFX_VERSION=""
             fi
