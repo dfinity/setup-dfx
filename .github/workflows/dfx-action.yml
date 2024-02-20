@@ -10,6 +10,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     name: Test the dfx action (action.yml)
     strategy:
+      fail-fast: false
       matrix:
         include:
           - version: '0.11.1'
