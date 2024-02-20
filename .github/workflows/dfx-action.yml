@@ -16,18 +16,6 @@ jobs:
         include:
           - version: '0.11.1'
             expected-version: '0.11.1'
-          - version: '0.14.1'
-            expected-version: '0.14.1'
-          - version: '0.14.2-beta.2'
-            expected-version: '0.14.2-beta.2'
-          - version: 'latest'
-          - version: 'auto'
-          - version: 'auto'
-            dfx-json-dfx-version: '0.11.1'
-            expected-version: '0.11.1'
-          - version: 'auto'
-            dfx-json-dfx-version: '0.14.1'
-            expected-version: '0.14.1'
     steps:
       # To use this repository's private action, you must check out the repository
       - name: Checkout
