@@ -16,6 +16,8 @@ jobs:
         include:
           - version: '0.11.1'
             expected-version: '0.11.1'
+          - version: '0.14.1'
+            expected-version: '0.14.1'
     steps:
       # To use this repository's private action, you must check out the repository
       - name: Checkout
