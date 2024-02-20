@@ -6,7 +6,9 @@ inputs:
       The dfx version to install. This value will be used to populate
       the DFX_VERSION variable that will be handled by the installation
       script "install.sh".
-    default: 'latest'
+      If "latest" is provided, the latest version will be installed.
+      If "auto" is provided, the version will be taken from the "dfx" field in dfx.json if it exists; otherwise as if "latest".
+    default: 'auto'
 
 runs:
   using: composite
@@ -15,10 +17,24 @@ runs:
       shell: sh
       env:
         DFXVM_INIT_YES: 'true'
-        DFX_VERSION: ${{ inputs.dfx-version != 'latest' && inputs.dfx-version || '' }}
+        # DFX_VERSION: ${{ inputs.dfx-version != 'latest' && inputs.dfx-version || '' }}
       run: |
-        echo "Version ${{ inputs.dfx-version }} will be installed"
-
+        # if the version is "auto", check if dfx.json exists and use the version from it
+        if [ "${{ inputs.dfx-version }}" = "auto" ]; then
+            if [ -f dfx.json ]; then
+                export DFX_VERSION="$(jq -r '.dfx' dfx.json)"
+                echo "Version $DFX_VERSION will be installed"
+            else
+                echo "No dfx.json found, installing the latest version"
+                DFX_VERSION=""
+            fi
+        fi
+        # if the version is neither "latest" not "auto", export it to the environment
+        if [ "${{ inputs.dfx-version }}" != "latest" ] && [ "${{ inputs.dfx-version }}" != "auto" ]; then
+            echo "Version $DFX_VERSION will be installed"
+            export DFX_VERSION="${{ inputs.dfx-version }}"
+        fi
+        
         sh -ci "$(curl -fsSL https://internetcomputer.org/install.sh)"
     - name: Set up path (linux)
       shell: sh

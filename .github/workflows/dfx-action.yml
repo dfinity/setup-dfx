@@ -13,10 +13,33 @@ jobs:
       matrix:
         version: ['0.11.1', '0.14.1', '0.14.2-beta.2', 'latest']
         os: [ ubuntu-latest, macos-latest ]
+        include:
+            - version: '0.11.1'
+              expected-version: '0.11.1'
+            - version: '0.14.1'
+              expected-version: '0.14.1'
+            - version: '0.14.2-beta.2'
+              expected-version: '0.14.2-beta.2'
+            - version: 'latest'
+            - version: 'auto'
+            - version: 'auto'
+              dfx-json-dfx-version: '0.11.1'
+              expected-version: '0.11.1'
+            - version: 'auto'
+              dfx-json-dfx-version: '0.14.1'
+              expected-version: '0.14.1'
     steps:
       # To use this repository's private action, you must check out the repository
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Setup
+        run: |
+          echo "Running on ${{ matrix.os }}"
+          echo "Testing dfx version ${{ matrix.version }}"
+          # create dfx.jsonb with dfx-json-dfx-version if set:
+          if [ "${{ matrix.version }}" = "auto" ]; then
+              echo "{\"dfx\": \"${{ matrix.dfx-json-dfx-version }}\"}" > dfx.json
+          fi
       # Install a certain `dfx` version and check if it is properly installed
       - name: Install dfx
         uses: ./
@@ -24,16 +47,19 @@ jobs:
           dfx-version: ${{ matrix.version }}
       - name: Check if the proper dfx version is installed
         run: |
+          export
+          
           actual_dfx_ver="$(dfx --version)"
-          expected_dfx_ver="dfx ${{ matrix.version }}"
 
-          if [ "$expected_dfx_ver" != "dfx latest" ]; then
-            if [ "$actual_dfx_ver" != "$expected_dfx_ver" ]; then
-              echo "Error: expected dfx version '$expected_dfx_ver', but '$actual_dfx_ver' found"
-              exit 1
-            fi
+          # if matrix has an expected-version, check it
+          if [ -n "${{ matrix.expected-version }}" ]; then
+              expected_dfx_ver="dfx ${{ matrix.expected-version }}"
 
-            echo "dfx version '$actual_dfx_ver' was installed correctly"
-          else
-            echo "The latest version is '$actual_dfx_ver'"
+              if [ "$actual_dfx_ver" != "$expected_dfx_ver" ]; then
+                echo "Error: expected dfx version '$expected_dfx_ver', but '$actual_dfx_ver' found"
+                exit 1
+              fi
+              
           fi
+
+          echo "dfx version '$actual_dfx_ver' was installed correctly"
