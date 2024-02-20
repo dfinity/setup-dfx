@@ -18,18 +18,45 @@ jobs:
           - version: '0.14.1'
             expected-version: '0.14.1'
             os: ubuntu-latest
+          - version: '0.14.2-beta.2'
+            expected-version: '0.14.2-beta.2'
+            os: ubuntu-latest
+          - version: 'latest'
+            os: ubuntu-latest
+          - version: 'auto'
+            os: ubuntu-latest
+          - version: 'auto'
+            dfx-json-dfx-version: '0.11.1'
+            expected-version: '0.11.1'
+            os: ubuntu-latest
+          - version: 'auto'
+            dfx-json-dfx-version: '0.14.1'
+            expected-version: '0.14.1'
+            os: ubuntu-latest
+
           - version: '0.11.1'
             expected-version: '0.11.1'
             os: macos-latest
           - version: '0.14.1'
             expected-version: '0.14.1'
             os: macos-latest
+          - version: '0.14.2-beta.2'
+            expected-version: '0.14.2-beta.2'
+            os: macos-latest
+          - version: 'latest'
+            os: macos-latest
+          - version: 'auto'
+            os: macos-latest
+          - version: 'auto'
+            dfx-json-dfx-version: '0.11.1'
+            expected-version: '0.11.1'
+            os: macos-latest
+          - version: 'auto'
+            dfx-json-dfx-version: '0.14.1'
+            expected-version: '0.14.1'
+            os: macos-latest
+
     steps:
-      - name: Debug Matrix
-        run: |
-          echo "Operating System: ${{ matrix.os }}"
-          echo "Version: ${{ matrix.version }}"
-          echo "Expected Version: ${{ matrix.expected-version }}"
       # To use this repository's private action, you must check out the repository
       - name: Checkout
         uses: actions/checkout@v4
