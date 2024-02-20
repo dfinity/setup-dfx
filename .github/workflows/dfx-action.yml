@@ -37,13 +37,6 @@ jobs:
           - version: 'auto'
             dfx-json-no-dfx-version: 'true'
             os: ubuntu-latest
-          - version: 'latest'
-            os: ubuntu-latest
-            dfx-json-dfx-version: '0.14.1'
-          - version: '0.14.1'
-            expected-version: '0.14.1'
-            dfx-json-dfx-version: '0.13.1'
-            os: ubuntu-latest
 
           - version: '0.11.1'
             expected-version: '0.11.1'
@@ -68,13 +61,6 @@ jobs:
             os: macos-latest
           - version: 'auto'
             dfx-json-no-dfx-version: 'true'
-            os: macos-latest
-          - version: 'latest'
-            os: macos-latest
-            dfx-json-dfx-version: '0.14.1'
-          - version: '0.14.1'
-            expected-version: '0.14.1'
-            dfx-json-dfx-version: '0.13.1'
             os: macos-latest
 
     steps:
