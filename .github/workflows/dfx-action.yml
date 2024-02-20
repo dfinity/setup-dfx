@@ -64,8 +64,8 @@ jobs:
         run: |
           echo "Running on ${{ matrix.os }}"
           echo "Testing dfx version ${{ matrix.version }}"
-          # create dfx.jsonb with dfx-json-dfx-version if set:
-          if [ "${{ matrix.version }}" = "auto" ]; then
+          # create dfx.json with dfx-json-dfx-version if set:
+          if [ "${{ matrix.version }}" = "auto" && -n "${{ matrix.dfx-json-dfx-version }}" ]; then
               echo "{\"dfx\": \"${{ matrix.dfx-json-dfx-version }}\"}" > dfx.json
           fi
       # Install a certain `dfx` version and check if it is properly installed
