@@ -13,13 +13,20 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: Install jq (Linux)
+      if: runner.os == 'Linux'
+      shell: sh
+      run: sudo apt-get install jq
+    - name: Install jq (macos)
+      if: runner.os == 'macOS'
+      shell: sh
+      run: brew install jq
     - name: Install dfx
       shell: sh
       env:
         DFXVM_INIT_YES: 'true'
         # DFX_VERSION: ${{ inputs.dfx-version != 'latest' && inputs.dfx-version || '' }}
       run: |
-        brew install jq
         if [ "${{ inputs.dfx-version }}" = "latest" ]; then
             echo "Latest version will be installed"
             export DFX_VERSION=""
