@@ -19,6 +19,7 @@ runs:
         DFXVM_INIT_YES: 'true'
         # DFX_VERSION: ${{ inputs.dfx-version != 'latest' && inputs.dfx-version || '' }}
       run: |
+        brew install jq
         if [ "${{ inputs.dfx-version }}" = "latest" ]; then
             echo "Latest version will be installed"
             export DFX_VERSION=""
@@ -33,6 +34,8 @@ runs:
         else
             export DFX_VERSION="${{ inputs.dfx-version }}"
         fi
+        
+        echo "DFX_VERSION is $DFX_VERSION"
         
         sh -ci "$(curl -fsSL https://internetcomputer.org/install.sh)"
     - name: Set up path (linux)
