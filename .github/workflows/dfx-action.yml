@@ -13,20 +13,20 @@ jobs:
       matrix:
         os: [ ubuntu-latest, macos-latest ]
         include:
-            - version: '0.11.1'
-              expected-version: '0.11.1'
-            - version: '0.14.1'
-              expected-version: '0.14.1'
-            - version: '0.14.2-beta.2'
-              expected-version: '0.14.2-beta.2'
-            - version: 'latest'
-            - version: 'auto'
-            - version: 'auto'
-              dfx-json-dfx-version: '0.11.1'
-              expected-version: '0.11.1'
-            - version: 'auto'
-              dfx-json-dfx-version: '0.14.1'
-              expected-version: '0.14.1'
+          - version: '0.11.1'
+            expected-version: '0.11.1'
+          - version: '0.14.1'
+            expected-version: '0.14.1'
+          - version: '0.14.2-beta.2'
+            expected-version: '0.14.2-beta.2'
+          - version: 'latest'
+          - version: 'auto'
+          - version: 'auto'
+            dfx-json-dfx-version: '0.11.1'
+            expected-version: '0.11.1'
+          - version: 'auto'
+            dfx-json-dfx-version: '0.14.1'
+            expected-version: '0.14.1'
     steps:
       # To use this repository's private action, you must check out the repository
       - name: Checkout
@@ -50,7 +50,6 @@ jobs:
           
           actual_dfx_ver="$(dfx --version)"
 
-          # if matrix has an expected-version, check it
           if [ -n "${{ matrix.expected-version }}" ]; then
               expected_dfx_ver="dfx ${{ matrix.expected-version }}"
 
@@ -58,7 +57,8 @@ jobs:
                 echo "Error: expected dfx version '$expected_dfx_ver', but '$actual_dfx_ver' found"
                 exit 1
               fi
-              
+              echo "dfx version '$actual_dfx_ver' was installed correctly"
+          else
+              echo "dfx version '$actual_dfx_ver' was installed"
           fi
 
-          echo "dfx version '$actual_dfx_ver' was installed correctly"
