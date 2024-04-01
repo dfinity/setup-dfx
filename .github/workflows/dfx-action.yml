@@ -15,6 +15,13 @@ jobs:
         include:
           - version: '0.11.1'
             expected-version: '0.11.1'
+            os: ubuntu-20.04
+          - version: '0.11.1'
+            expected-version: '0.11.1'
+            os: ubuntu-22.04
+
+          - version: '0.11.1'
+            expected-version: '0.11.1'
             os: ubuntu-latest
           - version: '0.14.1'
             expected-version: '0.14.1'
