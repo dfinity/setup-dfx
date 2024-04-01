@@ -30,7 +30,7 @@ runs:
 
         # sh -ci "$(curl -fsSL --connect-timeout 1 https://internetcomputer.org/install.sh)"
         # --retry 10  --retry-all-errors
-        if output=$(curl --fail --silent --show-error --location --connect-timeout 0.25 https://internetcomputer.org/install.sh); then
+        if output=$(curl --fail --silent --show-error --location --connect-timeout 0.25 --retry 10 --retry-all-errors --retry-connrefused --max-time 120 https://internetcomputer.org/install.sh); then
           sh -c "$output"
         else
           echo "Failed to download install script."
