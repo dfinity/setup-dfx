@@ -28,7 +28,9 @@ runs:
 
         echo "DFX_VERSION is $DFX_VERSION"
 
-        if install_script=$(curl --fail --silent --show-error --location --retry 10 --connect-timeout 0.15 --retry-all-errors --retry-connrefused --max-time 120 https://internetcomputer.org/install.sh); then
+        # Retry up to 10 times.  Each attempt has 20 seconds total to complete, 5 seconds of which is to connect.
+        # This uses the default retry delay, which starts at 1s and doubles each time, up to 10 min.
+        if install_script=$(curl --fail --silent --show-error --location --retry 10 --connect-timeout 5 --max-time 20 --retry-all-errors --retry-connrefused  https://internetcomputer.org/install.sh); then
           sh -c "$install_script"
         else
           echo "Failed to download install script."
