@@ -38,6 +38,14 @@ jobs:
             dfx-json-no-dfx-version: 'true'
             os: ubuntu-latest
 
+          - version: 'latest'
+            os: ubuntu-20.04
+          - version: 'auto'
+            os: ubuntu-20.04
+          - version: '0.11.1'
+            expected-version: '0.11.1'
+            os: ubuntu-20.04
+
           - version: '0.11.1'
             expected-version: '0.11.1'
             os: macos-latest
